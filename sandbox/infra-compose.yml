@@ -1,0 +1,40 @@
+x-postgres-common: &postgres-common
+  image: postgres:17
+  restart: always
+  healthcheck:
+    test: ["CMD-SHELL", "pg_isready -U ${ORBITUM_POSTGRES_USER} --dbname=orbitum"]
+    interval: 5s
+    timeout: 5s
+    retries: 5
+  shm_size: "1g"
+  ulimits:
+    nofile:
+      soft: 4096
+      hard: 65535
+
+services:
+  ################
+  ##  POSTGRES  ##
+  ################
+  postgres:
+    <<: *postgres-common
+    container_name: orbitum-postgres
+    environment:
+      POSTGRES_USER: ${ORBITUM_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${ORBITUM_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${ORBITUM_POSTGRES_DB}
+    ports:
+      - "5432:5432"
+
+  ##################
+  ##  MIGRATIONS  ##
+  ##################
+  migrations:
+    image: orbitum-migrations:latest
+    container_name: orbitum-postgres-tern-migrations
+    environment:
+      ORBITUM_MIGRATOR_CONN_STRING: ${ORBITUM_MIGRATOR_CONN_STRING}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
