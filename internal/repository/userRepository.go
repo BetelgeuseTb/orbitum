@@ -1,8 +1,8 @@
-package repo
+package repository
 
 import (
 	"context"
-	"github.com/betelgeuse/orbitum/internal/model"
+	"github.com/BetelgeuseTb/betelgeuse-orbitum/internal/model"
 )
 
 type UserRepository interface {
