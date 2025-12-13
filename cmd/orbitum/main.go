@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	reader "github.com/BetelgeuseTb/betelgeuse-orbitum/internal/utils"
+	"github.com/BetelgeuseTb/betelgeuse-orbitum/internal/utils/logger"
+	"github.com/BetelgeuseTb/betelgeuse-orbitum/internal/utils/reader"
 )
 
 const (
@@ -12,6 +13,6 @@ const (
 func main() {
 	data, _ := reader.NewFileReader().ReadFile(LOGO_PATH)
 	fmt.Println(string(data))
-	fmt.Println("Starting application ...")
-	fmt.Println("Application finished.")
+	logger.LogInfo("Starting application ...", "main")
+	logger.LogInfo("Application finished.", "main")
 }
