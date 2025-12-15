@@ -2,12 +2,10 @@ package models
 
 import "time"
 
-type AuditLog struct {
+type Permission struct {
 	ID        int64
 	OrbitID   int64
-	ActorID   *int64
-	Action    string
-	Target    string
+	Name      string
 	Metadata  map[string]any
 	CreatedAt time.Time
 }

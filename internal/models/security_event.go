@@ -2,12 +2,12 @@ package models
 
 import "time"
 
-type AuditLog struct {
+type SecurityEvent struct {
 	ID        int64
 	OrbitID   int64
-	ActorID   *int64
-	Action    string
-	Target    string
+	UserID    *int64
+	EventType string
+	Severity  string
 	Metadata  map[string]any
 	CreatedAt time.Time
 }
